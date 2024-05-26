@@ -148,7 +148,7 @@ class FCNN_approx:
 
             current_cost = cost(self.ys, Al)
             #progress_bar.set_postfix({'train_loss': f'{current_cost:.4f}'})
-            if e % 10 == 0:
+            if e % 25 == 0:
                 if visualize:
                     clear_output(wait=True)
                     
@@ -170,10 +170,10 @@ class FCNN_approx:
         title_parts = [f"{key.capitalize()} : {value}" for key, value in kwargs.items()]
         title = "NN approximation \n" + " - ".join(title_parts) if title_parts else "NN approximation"
         
-        plt.plot(self.xs[:,0].flatten(), self.ys.flatten(), label='True', alpha=0.6)
-        plt.plot(self.xs[:,0].flatten(), y_pred.flatten(), label='Predicted', alpha=0.6)
+        plt.plot(self.xs[:,0].flatten(), self.ys.flatten(), label='True', alpha=0.6, linewidth=4)
+        plt.plot(self.xs[:,0].flatten(), y_pred.flatten(), label='Predicted', alpha=0.6, linewidth=4, color = "red")
         
-        #plt.scatter(self.xs[:,0], y_pred, label='Predicted', alpha=0.6)
+        #plt.scatter(self.xs[:,0], y_pred, label='Predicted', color = "red", alpha=0.6)
         #plt.scatter(self.xs[:,0], self.ys, label='True', alpha=0.6)
         
         plt.title(title)
