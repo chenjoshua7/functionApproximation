@@ -96,14 +96,14 @@ class TaylorSeries:
         plt.title("Plot of the Function and its Taylor Series Approximation")
         plt.xlim(lower_bound *1.1, upper_bound *  1.1)
         plt.ylim(np.min(y) - abs(0.1 *np.max(y)), np.max(y) * 1.1)
-        plt.text(x = lower_bound, y = np.max(y)*2/3, s = f"Order = {self.params['N']}")
-        plt.text(x = lower_bound, y = np.max(y)*3/4, s = f"Function = {func}")
+        plt.text(x = lower_bound, y = np.max(y)*2/3, s = f"Order = {self.params['N']}", bbox=dict(facecolor='lightgrey', alpha=0.7))
+        plt.text(x = lower_bound, y = np.max(y)*5/6, s = f"Function = {func}", bbox=dict(facecolor='lightgrey', alpha=0.7))
         plt.legend()
         plt.show()
         
-    def visualize_plots(self, N=10, A = 0, func = "exponential"):
+    def visualize_plots(self, N=10, func = "exponential", A = 0.):
         for i in range(N+1):
-            self.set_params(N=i, A = A)
+            self.set_params(N=i)
             self.plot_function(func = func)
             display(plt.gcf())
             plt.close()

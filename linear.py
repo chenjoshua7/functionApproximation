@@ -14,7 +14,6 @@ class LinearApprox:
         self.params = {}
         self.xs = None
         self.coefs = None
-    
         
     def set_graph_params(self, size = 100000, lower_bound = -10, upper_bound = 10):
         self.graph_params = {
@@ -23,7 +22,7 @@ class LinearApprox:
             "upper_bound": upper_bound
         }
     
-    def plot_function(self, N =5, func="exponential"):    
+    def plot_function(self, N =5, func="exponential", A:float = 0.):    
         if func == "exponential":
             function = np.exp
         elif func == "cosine":
@@ -45,7 +44,7 @@ class LinearApprox:
             
         y = function(self.xs)
         
-        poly_xs= create_polynomials(self.xs, N= N)
+        poly_xs= create_polynomials(self.xs, N= N, A = A)
         
         model = LinearRegression()
         model.fit(poly_xs, y)
@@ -55,23 +54,24 @@ class LinearApprox:
         
         plt.figure(figsize=(10, 6))
         plt.plot(self.xs, y, label='Function', marker='o')
-        plt.plot(self.xs, predictions, label='Taylor Approximation', marker='o', color='red')
-        plt.title("Plot of the Function and its Taylor Series Approximation")
+        plt.plot(self.xs, predictions, label='Linear Approximation', marker='o', color='red')
+        plt.title("Approximation of Function with Regression and Polynomial Features")
         plt.xlim(lower_bound *1.1, upper_bound *  1.1)
         plt.ylim(np.min(y) - abs(0.1 *np.max(y)), np.max(y) * 1.1)
-        plt.text(x = lower_bound, y = np.min(y)+0.2*(np.max(y)-np.min(y)), s = f"Order = {N}")
-        if func is str:
-            plt.text(x = lower_bound, y = np.min(y)+0.4*(np.max(y)-np.min(y)), s = f"Function = Custom Function")
+        plt.text(x = lower_bound, y = np.min(y)+7/8*(np.max(y)-np.min(y)), s = f"Order = {N}", bbox=dict(facecolor='lightgrey', alpha=0.7))
+        if isinstance(func, str):
+            plt.text(x = lower_bound, y = np.min(y)+3/4*(np.max(y)-np.min(y)), s = f"Function = {func}", bbox=dict(facecolor='lightgrey', alpha=0.7))
         else:
-            plt.text(x = lower_bound, y = np.min(y)+0.4*(np.max(y)-np.min(y)), s = f"Function = {func}")
+            plt.text(x = lower_bound, y = np.min(y)+(np.max(y)-np.min(y)), s = f"Function = Custom Function", bbox=dict(facecolor='lightgrey', alpha=0.7))
+
         plt.legend()
         plt.show()
         
         self.ys = predictions
         
-    def visualize_plots(self, N=10, A = 0, func = "exponential"):
+    def visualize_plots(self, N=10, func = "exponential", A: float = 0.):
         for i in range(N+1):
-            self.plot_function(func = func, N = i)
+            self.plot_function(func = func, N = i, A = A)
             display(plt.gcf())
             plt.close()
             time.sleep(0.5)

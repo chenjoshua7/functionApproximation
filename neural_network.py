@@ -124,9 +124,9 @@ class FCNN_approx:
         self.xs = create_polynomials(xs, N=self.params["N"])
         self.ys = function(xs)
         
-    def initialize(self, N, func):
+    def initialize(self, N, func, size: int = 5000):
         self.set_params(N=N)
-        self.set_graph_params()
+        self.set_graph_params(size = size)
         self.generate_data(func=func)
         
     def train(self, layer_dims, initial_lr, epochs=10, decay_rate=0.8, decay_steps=10, standardize=True, visualize=True, delay = 0.01):
