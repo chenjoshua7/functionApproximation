@@ -35,5 +35,5 @@ To run this project, you need Python 3.x and the following libraries:
 Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/yourusername/function-approximation-project.git
+git clone https://github.com/chenjoshua7/function-approximation-project.git
 cd function-approximation-project
